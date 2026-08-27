@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Brand Backgrounds */
+  --bg-primary: #0C0C0C;
+  --bg-deep: #050505;
+
+  /* Gold Gradient (for headline/display text & key CTAs) */
+  --gold-gradient-start: #B8894F;
+  --gold-gradient-end: #E8C896;
+  --gold-gradient: linear-gradient(135deg, #B8894F 0%, #E8C896 100%);
+  --gold-gradient-v: linear-gradient(180deg, #E8C896 0%, #B8894F 100%);
+
+  /* Gold Stroke & Border Accents */
+  --gold-border: rgba(184, 137, 79, 0.4);
+  --gold-border-subtle: rgba(184, 137, 79, 0.2);
+  --gold-border-glow: rgba(232, 200, 150, 0.6);
+  --gold-accent: #E8C896;
+  --gold-bronze: #B8894F;
+
+  /* Silver/Metallic Gradient (Secondary accent for numerals & contrast text) */
+  --silver-gradient-start: #D8D8D8;
+  --silver-gradient-mid: #FFFFFF;
+  --silver-gradient-end: #B0B0B0;
+  --silver-gradient: linear-gradient(180deg, #D8D8D8 0%, #FFFFFF 50%, #B0B0B0 100%);
+
+  /* Primary White (Names, main headings) */
+  --text-primary-white: #FFFFFF;
+
+  /* Muted Gray (Secondary/supporting text, captions, roles, footer fine print) */
+  --text-muted-gray: #9A9A9A;
+  --text-muted-gray-hover: #D8D8D8;
+}
+
 *,
 *::before,
 *::after {
@@ -22,9 +54,243 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.hero-heading {
-  background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+@layer utilities {
+  .hero-heading {
+    background: linear-gradient(135deg, #B8894F 0%, #E8C896 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .section-title {
+    font-size: clamp(2.4rem, 5.5vw, 76px);
+    line-height: 1;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #B8894F 0%, #E8C896 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gold-gradient-v {
+    background: linear-gradient(180deg, #E8C896 0%, #B8894F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-silver-gradient {
+    background: linear-gradient(180deg, #D8D8D8 0%, #FFFFFF 50%, #B0B0B0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-brand-muted {
+    color: var(--text-muted-gray, #9A9A9A);
+  }
+
+  .border-gold-accent {
+    border-color: var(--gold-border, rgba(184, 137, 79, 0.4));
+  }
+
+  .border-gold-accent-subtle {
+    border-color: var(--gold-border-subtle, rgba(184, 137, 79, 0.2));
+  }
+
+  .text-metallic-gold-shine {
+    background: linear-gradient(
+      120deg,
+      #b4872d 0%,
+      #ebc369 25%,
+      #ffe6a0 45%,
+      #ebc369 55%,
+      #b4872d 80%,
+      #b4872d 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: metallic-shine 4s linear infinite;
+  }
+
+  .text-metallic-silver-shine {
+    background: linear-gradient(
+      120deg,
+      #8c8c91 0%,
+      #d2d2d5 25%,
+      #ffffff 45%,
+      #d2d2d5 55%,
+      #8c8c91 80%,
+      #8c8c91 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: metallic-shine 4s linear infinite;
+  }
+
+  .btn-metallic-gold-shine {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #b4872d 0%, #ebc369 100%);
+    color: #0c0c0c;
+  }
+
+  .btn-metallic-gold-shine::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.65) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    animation: btn-shine 4s ease-in-out infinite;
+  }
+}
+
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-100% - var(--gap, 1rem)), 0, 0);
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, calc(-100% - var(--gap, 1rem)), 0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration, 40s) linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration, 40s) linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+@keyframes metallic-shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes btn-shine {
+  0% {
+    left: -60%;
+  }
+  30% {
+    left: 140%;
+  }
+  100% {
+    left: 140%;
+  }
+}
+
+/* =========================================================================
+   CINEMATIC FOOTER EFFECTS & ANIMATIONS
+   ========================================================================= */
+
+@keyframes footer-breathe {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.9; }
+}
+
+@keyframes footer-scroll-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-footer-breathe {
+  animation: footer-breathe 8s ease-in-out infinite alternate;
+}
+
+.animate-footer-scroll-marquee {
+  animation: footer-scroll-marquee 35s linear infinite;
+}
+
+/* Theme-adaptive Grid Background */
+.footer-bg-grid {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(184, 137, 79, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(184, 137, 79, 0.08) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+}
+
+/* Theme-adaptive Amber / Gold Aurora Glow */
+.footer-aurora {
+  background: radial-gradient(
+    circle at 50% 50%, 
+    rgba(184, 137, 79, 0.22) 0%, 
+    rgba(232, 200, 150, 0.12) 40%, 
+    transparent 70%
+  );
+}
+
+/* Glass Pill Theming for Footers */
+.footer-glass-pill {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  box-shadow: 
+      0 10px 30px -10px rgba(0, 0, 0, 0.7), 
+      inset 0 1px 1px rgba(232, 200, 150, 0.25), 
+      inset 0 -1px 2px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(184, 137, 79, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-glass-pill:hover {
+  background: linear-gradient(145deg, rgba(184, 137, 79, 0.18) 0%, rgba(232, 200, 150, 0.06) 100%);
+  border-color: rgba(232, 200, 150, 0.5);
+  box-shadow: 
+      0 20px 40px -10px rgba(184, 137, 79, 0.35), 
+      inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+/* Giant Background Parallax Text Masking */
+.footer-giant-bg-text {
+  font-size: clamp(4.5rem, 18.5vw, 20.5vw);
+  line-height: 0.72;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(184, 137, 79, 0.22);
+  background: linear-gradient(180deg, rgba(232, 200, 150, 0.18) 0%, rgba(184, 137, 79, 0.06) 45%, transparent 75%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
 }

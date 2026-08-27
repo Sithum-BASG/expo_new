@@ -1,90 +1,144 @@
+import { useState } from 'react';
+import { BookOpen } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 import ContactButton from '../components/ContactButton';
 import FadeIn from '../components/FadeIn';
+import { MagazineViewer } from '../components/ui/magazine-viewer';
 
-const DECOR_BASE =
-  'https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7';
-
-const ABOUT_COPY =
-  'With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let\u2019s build something incredible together!';
-
-const DECORATIONS = [
+const PAST_MAGAZINES = [
   {
-    src: `${DECOR_BASE}/moon_icon.11395d36.png`,
-    alt: '',
-    className:
-      'absolute top-[4%] left-[1%] w-[120px] sm:left-[2%] sm:w-[160px] md:left-[4%] md:w-[210px]',
-    delay: 0.1,
-    x: -80,
+    issueNum: '18',
+    issueLabel: 'ISSUE 18',
+    year: '2021',
+    readerUrl: '/magazine-reader?issue=18',
+    title: 'EXPOSITION ISSUE 18 — 2021 EDITION',
+    pdfUrl: '/Resources/Exposition past magazines/Exposition Issue 18.pdf',
+    coverImg: '/magazines/issue-18-cover.jpg',
   },
   {
-    src: `${DECOR_BASE}/p59_1.4659672e.png`,
-    alt: '',
-    className:
-      'absolute bottom-[8%] left-[3%] w-[100px] sm:left-[6%] sm:w-[140px] md:left-[10%] md:w-[180px]',
-    delay: 0.25,
-    x: -80,
+    issueNum: '19',
+    issueLabel: 'ISSUE 19',
+    year: '2023',
+    readerUrl: '/magazine-reader?issue=19',
+    title: 'EXPOSITION ISSUE 19 — 2023 EDITION',
+    pdfUrl: '/Resources/Exposition past magazines/Exposition Issue 19.pdf',
+    coverImg: '/magazines/issue-19-cover.jpg',
   },
   {
-    src: `${DECOR_BASE}/lego_icon-1.703bb594.png`,
-    alt: '',
-    className:
-      'absolute top-[4%] right-[1%] w-[120px] sm:right-[2%] sm:w-[160px] md:right-[4%] md:w-[210px]',
-    delay: 0.15,
-    x: 80,
-  },
-  {
-    src: `${DECOR_BASE}/Group_134-1.2e04f3ce.png`,
-    alt: '',
-    className:
-      'absolute bottom-[8%] right-[3%] w-[130px] sm:right-[6%] sm:w-[170px] md:right-[10%] md:w-[220px]',
-    delay: 0.3,
-    x: 80,
+    issueNum: '21',
+    issueLabel: 'ISSUE 21',
+    year: '2025',
+    readerUrl: '/magazine-reader?issue=21',
+    title: 'EXPOSITION ISSUE 21 — 2025 EDITION',
+    pdfUrl: '/Resources/Exposition past magazines/Exposition Issue 21.pdf',
+    coverImg: '/magazines/issue-21-cover.jpg',
   },
 ];
 
 export default function AboutSection() {
+  const [activeMag, setActiveMag] = useState<(typeof PAST_MAGAZINES)[0] | null>(null);
+
   return (
     <section
       id="about"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#0C0C0C] px-5 py-20 sm:px-8 md:px-10"
+      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0C0C0C] px-[5%] py-14 sm:py-20 md:py-24"
     >
-      {DECORATIONS.map((decoration) => (
-        <FadeIn
-          key={decoration.src}
-          className={`${decoration.className} pointer-events-none select-none`}
-          delay={decoration.delay}
-          duration={0.9}
-          x={decoration.x}
-          y={0}
-        >
-          <img src={decoration.src} alt={decoration.alt} className="h-auto w-full" />
-        </FadeIn>
-      ))}
-
-      <div className="relative z-10 flex flex-col items-center gap-16 sm:gap-20 md:gap-24">
-        <div className="flex flex-col items-center gap-10 sm:gap-14 md:gap-16">
+      <div className="relative z-10 flex flex-col items-center gap-12 sm:gap-16 md:gap-20 max-w-4xl mx-auto">
+        <div className="flex flex-col items-center gap-8 sm:gap-12 md:gap-14">
           <FadeIn
             as="h2"
             delay={0}
             y={40}
-            className="hero-heading text-center font-black uppercase leading-none tracking-tight"
-            style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
+            className="hero-heading section-title text-center font-black uppercase leading-none tracking-tight"
+            style={{ fontSize: 'clamp(2.4rem, 5.5vw, 76px)' }}
           >
-            About me
+            What is Exposition?
           </FadeIn>
 
-          <AnimatedText
-            text={ABOUT_COPY}
-            className="max-w-[560px] text-center font-medium leading-relaxed text-[#D7E2EA]"
-            style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
-          />
+          <div className="flex flex-col items-center gap-6 max-w-[720px]">
+            <AnimatedText
+              text="Exposition is a flagship industry engagement platform organized by the Industrial Management Science Students' Association at the Department of Industrial Management, University of Kelaniya."
+              className="text-center font-medium leading-relaxed text-[#9A9A9A]"
+              style={{ fontSize: 'clamp(1rem, 1.8vw, 1.25rem)' }}
+            />
+            <AnimatedText
+              text="Exposition serves as a bridge between academia and industry, bringing together students, industry leaders, and organizations through meaningful conversations, collaborative experiences, and career-focused opportunities."
+              className="text-center font-medium leading-relaxed text-[#9A9A9A]"
+              style={{ fontSize: 'clamp(1rem, 1.8vw, 1.25rem)' }}
+            />
+          </div>
+
+          {/* Read Our Previous Publications (3D Magazine Books) */}
+          <FadeIn delay={0.1} y={20} className="flex flex-col items-center gap-4 py-4 my-2">
+            <span className="text-xs sm:text-sm font-mono uppercase tracking-[0.25em] text-[#E8C896] font-semibold text-center drop-shadow">
+              Read Our Previous Publications
+            </span>
+            <div className="flex items-center justify-center gap-4 sm:gap-6 flex-wrap">
+              {PAST_MAGAZINES.map((mag) => (
+                <a
+                  key={mag.issueNum}
+                  href={mag.readerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`Open ${mag.issueLabel} (${mag.year}) in new tab`}
+                  className="group relative flex flex-col justify-between w-28 h-40 sm:w-36 sm:h-52 md:w-40 md:h-56 rounded-xl p-3 border border-[#B8894F]/40 bg-[#121212] shadow-[0_15px_35px_rgba(0,0,0,0.95),inset_4px_0_8px_rgba(255,255,255,0.15)] transition-all duration-300 hover:-translate-y-3 hover:rotate-[-4deg] hover:border-[#E8C896] hover:shadow-[0_25px_45px_rgba(184,137,79,0.5)] cursor-pointer overflow-hidden text-left"
+                >
+                  {/* PDF Cover Image */}
+                  <img
+                    src={mag.coverImg}
+                    alt={`${mag.issueLabel} Cover`}
+                    className="absolute inset-0 w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+                  />
+
+                  {/* Dark Gradient Overlay on Top Edge */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/70 rounded-xl" />
+
+                  {/* Book Spine Highlight Effect */}
+                  <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-r from-white/40 via-white/15 to-transparent z-10" />
+
+                  {/* Top Issue Badge */}
+                  <div className="flex items-center justify-between z-20 w-full">
+                    <span className="text-[0.62rem] sm:text-xs font-black uppercase tracking-wider text-[#E8C896] bg-black/80 backdrop-blur-sm px-2 py-0.5 rounded-md border border-[#B8894F]/50 shadow-md">
+                      {mag.issueLabel}
+                    </span>
+                    <BookOpen className="h-4 w-4 text-[#E8C896] drop-shadow opacity-90 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </a>
+              ))}
+            </div>
+          </FadeIn>
+
+          <div className="flex flex-col items-center gap-4 max-w-[720px] pt-6 border-t border-white/10 w-full">
+            <FadeIn
+              as="h3"
+              delay={0.1}
+              y={20}
+              className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#E8C896]"
+            >
+              IMSSA
+            </FadeIn>
+            <AnimatedText
+              text="The Industrial Management Science Students' Association (IMSSA) is the student body of the Department of Industrial Management, University of Kelaniya, dedicated to fostering academic excellence, professional development, and industry engagement among undergraduates."
+              className="text-center font-medium leading-relaxed text-[#9A9A9A]"
+              style={{ fontSize: 'clamp(0.95rem, 1.6vw, 1.15rem)' }}
+            />
+          </div>
         </div>
 
         <FadeIn delay={0.15} y={20}>
-          <ContactButton />
+          <ContactButton label="Contact Us" />
         </FadeIn>
       </div>
+
+      {/* Book-Style Magazine Viewer Modal */}
+      {activeMag && (
+        <MagazineViewer
+          pdfUrl={activeMag.pdfUrl}
+          issueLabel={activeMag.issueLabel}
+          title={activeMag.title}
+          onClose={() => setActiveMag(null)}
+        />
+      )}
     </section>
   );
 }
