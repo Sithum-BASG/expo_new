@@ -1,74 +1,117 @@
+import { useEffect, useState } from 'react';
+import { FaLinkedinIn, FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa6';
 import ContactButton from '../components/ContactButton';
 import FadeIn from '../components/FadeIn';
 import Magnet from '../components/Magnet';
+import { SocialTooltip, SocialItem } from '../components/ui/social-media';
+import { HeroBackground } from '../components/ui/hero-background';
 
-const NAV_LINKS = ['About', 'Price', 'Projects', 'Contact'];
-
-const PORTRAIT_SRC =
-  'https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png';
+const HERO_SOCIAL_ITEMS: SocialItem[] = [
+  {
+    href: 'https://www.linkedin.com/company/exposition-magazine/',
+    ariaLabel: 'LinkedIn',
+    tooltip: 'LinkedIn',
+    color: '#0077b5',
+    icon: <FaLinkedinIn className="size-4" />,
+  },
+  {
+    href: 'https://www.facebook.com/Exposition.uok/',
+    ariaLabel: 'Facebook',
+    tooltip: 'Facebook',
+    color: '#1877f2',
+    icon: <FaFacebookF className="size-4" />,
+  },
+  {
+    href: 'https://www.instagram.com/exposition_magazine/',
+    ariaLabel: 'Instagram',
+    tooltip: 'Instagram',
+    color: '#e4405f',
+    icon: <FaInstagram className="size-4" />,
+  },
+  {
+    href: 'https://www.youtube.com/@expositionmagazine',
+    ariaLabel: 'YouTube',
+    tooltip: 'YouTube',
+    color: '#ff0000',
+    icon: <FaYoutube className="size-4" />,
+  },
+];
 
 export default function HeroSection() {
+  const [fontSize, setFontSize] = useState('85px');
+
+  useEffect(() => {
+    const updateSize = () => {
+      const w = window.innerWidth;
+      if (w < 640) {
+        setFontSize(`${Math.max(36, Math.floor(w * 0.1))}px`);
+      } else if (w < 1024) {
+        setFontSize(`${Math.max(56, Math.floor(w * 0.085))}px`);
+      } else {
+        setFontSize(`${Math.min(125, Math.floor(w * 0.08))}px`);
+      }
+    };
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
   return (
     <section
       className="relative flex h-screen flex-col bg-[#0C0C0C]"
       style={{ overflowX: 'clip' }}
     >
-      <FadeIn
-        as="nav"
-        delay={0}
-        y={-20}
-        className="relative z-20 flex w-full items-center justify-between px-6 pt-6 text-sm font-medium uppercase tracking-wider text-[#D7E2EA] md:px-10 md:pt-8 md:text-lg lg:text-[1.4rem]"
-      >
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link}
-            href={`#${link.toLowerCase()}`}
-            className="transition-opacity duration-200 hover:opacity-70"
-          >
-            {link}
-          </a>
-        ))}
-      </FadeIn>
+      {/* Animated Magazine Covers & Gold Ambient Background */}
+      <HeroBackground />
 
-      <div className="relative z-20 overflow-hidden">
-        <FadeIn
-          as="h1"
-          delay={0.15}
-          y={40}
-          className="hero-heading mt-6 w-full whitespace-nowrap text-center text-[14vw] font-black uppercase leading-none tracking-tight sm:mt-4 sm:text-[15vw] md:-mt-5 md:text-[16vw] lg:text-[17.5vw]"
+      {/* Top Navbar Spacer */}
+      <div className="relative z-20 w-full px-[5%] pt-6 md:pt-8 h-12 md:h-16 pointer-events-none" />
+
+      {/* Primary Wordmark & Subtitle Lockup */}
+      <div className="relative z-20 w-full flex flex-col items-center justify-center my-auto px-[5%]">
+        <FadeIn delay={0.2} y={30} className="flex flex-col items-center justify-center text-center">
+          <h1
+            style={{
+              fontFamily: 'Times New Roman, Georgia, serif',
+              fontSize: fontSize,
+              fontWeight: 900,
+            }}
+            className="text-metallic-gold-shine tracking-tight drop-shadow-[0_10px_35px_rgba(0,0,0,0.9)]"
+          >
+            Exposition
+          </h1>
+          <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base font-mono font-bold tracking-[0.3em] uppercase text-[#E8C896] drop-shadow-md">
+            21ST EDITION
+          </p>
+        </FadeIn>
+
+        {/* Social Links Row */}
+        <Magnet
+          padding={120}
+          strength={3}
+          activeTransition="transform 0.3s ease-out"
+          inactiveTransition="transform 0.6s ease-in-out"
+          wrapperClassName="flex items-center justify-center mt-6 sm:mt-8"
         >
-          Hi, i&apos;m jack
+          <FadeIn delay={0.4} y={20}>
+            <SocialTooltip
+              items={HERO_SOCIAL_ITEMS}
+              borderClass="border border-[#B8894F]/30"
+              iconColorClass="text-[#E8C896] group-hover:text-[#0C0C0C]"
+              containerSizeClass="w-11 h-11 sm:w-12 sm:h-12 bg-black/80 backdrop-blur-md"
+              iconSizeClass="w-5 h-5"
+            />
+          </FadeIn>
+        </Magnet>
+
+        {/* Subtle Gold Divider Line */}
+        <FadeIn delay={0.45} y={10} className="w-full max-w-xs mt-8 sm:mt-10">
+          <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#C9A25F]/40 to-transparent" />
         </FadeIn>
       </div>
 
-      <Magnet
-        padding={150}
-        strength={3}
-        activeTransition="transform 0.3s ease-out"
-        inactiveTransition="transform 0.6s ease-in-out"
-        wrapperClassName="pointer-events-none absolute left-1/2 top-1/2 z-10 w-[280px] -translate-x-1/2 -translate-y-1/2 sm:bottom-0 sm:top-auto sm:w-[360px] sm:translate-y-0 md:w-[440px] lg:w-[520px]"
-      >
-        <FadeIn delay={0.6} y={30}>
-          <img
-            src={PORTRAIT_SRC}
-            alt="Jack, 3D creator"
-            className="h-auto w-full select-none"
-            draggable={false}
-          />
-        </FadeIn>
-      </Magnet>
-
-      <div className="relative z-20 mt-auto flex items-end justify-between px-6 pb-7 sm:pb-8 md:px-10 md:pb-10">
-        <FadeIn
-          as="p"
-          delay={0.35}
-          y={20}
-          className="max-w-[160px] font-light uppercase leading-snug tracking-wide text-[#D7E2EA] sm:max-w-[220px] md:max-w-[260px]"
-          style={{ fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
-        >
-          a 3d creator driven by crafting striking and unforgettable projects
-        </FadeIn>
-
+      {/* Bottom Bar: Contact Us Button on Right */}
+      <div className="relative z-20 mt-auto flex items-end justify-end px-[5%] pb-7 sm:pb-8 md:pb-10">
         <FadeIn delay={0.5} y={20}>
           <ContactButton />
         </FadeIn>
