@@ -5,3 +5,8 @@ dist-ssr
 .vite
 .DS_Store
 *.tsbuildinfo
+/Resources/
+public/resources/team/edited/
+*.pdf
+scratch_*.png
+yt.html
