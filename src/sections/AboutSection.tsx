@@ -1,45 +1,44 @@
 import AnimatedText from '../components/AnimatedText';
 import ContactButton from '../components/ContactButton';
 import FadeIn from '../components/FadeIn';
+import { PerspectiveBook } from '@/components/ui/perspective-book';
 
-const DECOR_BASE =
-  'https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7';
-
-const ABOUT_COPY =
-  'With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let\u2019s build something incredible together!';
-
-const DECORATIONS = [
+const PAST_MAGAZINES = [
   {
-    src: `${DECOR_BASE}/moon_icon.11395d36.png`,
-    alt: '',
-    className:
-      'absolute top-[4%] left-[1%] w-[120px] sm:left-[2%] sm:w-[160px] md:left-[4%] md:w-[210px]',
-    delay: 0.1,
-    x: -80,
+    issueNum: '18',
+    issueLabel: 'ISSUE 18',
+    year: '2021',
+    readerUrl: '/magazine-reader?issue=18',
+    title: 'EXPOSITION ISSUE 18 — 2021 EDITION',
+    pdfUrl: '/resources/Exposition past magazines/Exposition Issue 18.pdf',
+    coverImg: '/magazines/issue-18-cover.jpg',
   },
   {
-    src: `${DECOR_BASE}/p59_1.4659672e.png`,
-    alt: '',
-    className:
-      'absolute bottom-[8%] left-[3%] w-[100px] sm:left-[6%] sm:w-[140px] md:left-[10%] md:w-[180px]',
-    delay: 0.25,
-    x: -80,
+    issueNum: '19',
+    issueLabel: 'ISSUE 19',
+    year: '2023',
+    readerUrl: '/magazine-reader?issue=19',
+    title: 'EXPOSITION ISSUE 19 — 2023 EDITION',
+    pdfUrl: '/resources/Exposition past magazines/Exposition Issue 19.pdf',
+    coverImg: '/magazines/issue-19-cover.jpg',
   },
   {
-    src: `${DECOR_BASE}/lego_icon-1.703bb594.png`,
-    alt: '',
-    className:
-      'absolute top-[4%] right-[1%] w-[120px] sm:right-[2%] sm:w-[160px] md:right-[4%] md:w-[210px]',
-    delay: 0.15,
-    x: 80,
+    issueNum: '20',
+    issueLabel: 'ISSUE 20',
+    year: '2024',
+    readerUrl: '/magazine-reader?issue=20',
+    title: 'EXPOSITION ISSUE 20 — 2024 EDITION',
+    pdfUrl: '/magazines/Exposition-Issue-20.pdf',
+    coverImg: '/magazines/issue-20-cover.jpg',
   },
   {
-    src: `${DECOR_BASE}/Group_134-1.2e04f3ce.png`,
-    alt: '',
-    className:
-      'absolute bottom-[8%] right-[3%] w-[130px] sm:right-[6%] sm:w-[170px] md:right-[10%] md:w-[220px]',
-    delay: 0.3,
-    x: 80,
+    issueNum: '21',
+    issueLabel: 'ISSUE 21',
+    year: '2025',
+    readerUrl: '/magazine-reader?issue=21',
+    title: 'EXPOSITION ISSUE 21 — 2025 EDITION',
+    pdfUrl: '/resources/Exposition past magazines/Exposition Issue 21.pdf',
+    coverImg: '/magazines/issue-21-cover.jpg',
   },
 ];
 
@@ -47,42 +46,87 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#0C0C0C] px-5 py-20 sm:px-8 md:px-10"
+      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-transparent px-[5%] py-14 sm:py-20 md:py-24"
     >
-      {DECORATIONS.map((decoration) => (
-        <FadeIn
-          key={decoration.src}
-          className={`${decoration.className} pointer-events-none select-none`}
-          delay={decoration.delay}
-          duration={0.9}
-          x={decoration.x}
-          y={0}
-        >
-          <img src={decoration.src} alt={decoration.alt} className="h-auto w-full" />
-        </FadeIn>
-      ))}
-
-      <div className="relative z-10 flex flex-col items-center gap-16 sm:gap-20 md:gap-24">
-        <div className="flex flex-col items-center gap-10 sm:gap-14 md:gap-16">
+      <div className="relative z-10 flex flex-col items-center gap-12 sm:gap-16 md:gap-20 max-w-4xl mx-auto">
+        <div className="flex flex-col items-center gap-8 sm:gap-12 md:gap-14">
           <FadeIn
             as="h2"
             delay={0}
             y={40}
-            className="hero-heading text-center font-black uppercase leading-none tracking-tight"
-            style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
+            className="hero-heading section-title text-center font-black uppercase leading-none tracking-tight text-white drop-shadow-[0_4px_25px_rgba(201,162,95,0.25)]"
+            style={{ fontSize: 'clamp(2.4rem, 5.5vw, 76px)' }}
           >
-            About me
+            What is Exposition?
           </FadeIn>
 
-          <AnimatedText
-            text={ABOUT_COPY}
-            className="max-w-[560px] text-center font-medium leading-relaxed text-[#D7E2EA]"
-            style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
-          />
+          <div className="flex flex-col items-center gap-6 max-w-[720px]">
+            <AnimatedText
+              text="Exposition serves as a bridge between academia and industry, bringing together students, industry leaders, and organizations through meaningful conversations, collaborative experiences, and career-focused opportunities."
+              className="text-center font-medium leading-relaxed text-[#9A9A9A]"
+              style={{ fontSize: 'clamp(1rem, 1.8vw, 1.25rem)' }}
+            />
+          </div>
+
+          {/* Read Our Previous Publications (3D Magazine Books) */}
+          <FadeIn delay={0.1} y={20} className="flex flex-col items-center gap-4 py-4 my-2">
+            <span
+              className="text-sm sm:text-base md:text-lg tracking-wide text-[#E8C896] italic text-center drop-shadow"
+              style={{
+                fontFamily: "'Jost', sans-serif",
+                fontWeight: 500,
+                fontStyle: 'italic',
+              }}
+            >
+              Read Our Previous Publications
+            </span>
+            <div className="flex items-center justify-center gap-6 sm:gap-10 md:gap-12 flex-wrap pt-2">
+              {PAST_MAGAZINES.map((mag) => (
+                <a
+                  key={mag.issueNum}
+                  href={mag.readerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`Open ${mag.issueLabel} (${mag.year}) in new tab`}
+                  className="cursor-pointer block group/book focus:outline-none"
+                >
+                  <PerspectiveBook size="sm" textured className="p-0 border-0 bg-transparent overflow-hidden">
+                    <img
+                      src={mag.coverImg}
+                      alt={`${mag.issueLabel} Cover`}
+                      className="absolute inset-0 w-full h-full object-cover rounded-[inherit]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-[inherit] pointer-events-none" />
+                    <div className="relative z-10 mt-auto p-2.5">
+                      <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        {mag.issueLabel}
+                      </span>
+                    </div>
+                  </PerspectiveBook>
+                </a>
+              ))}
+            </div>
+          </FadeIn>
+
+          <div className="flex flex-col items-center gap-4 max-w-[720px] pt-6 border-t border-white/10 w-full">
+            <FadeIn
+              as="h3"
+              delay={0.1}
+              y={20}
+              className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#E8C896]"
+            >
+              IMSSA
+            </FadeIn>
+            <AnimatedText
+              text="The Industrial Management Science Students' Association (IMSSA) is the student body of the Department of Industrial Management, University of Kelaniya, dedicated to fostering academic excellence, professional development, and industry engagement among undergraduates."
+              className="text-center font-medium leading-relaxed text-[#9A9A9A]"
+              style={{ fontSize: 'clamp(0.95rem, 1.6vw, 1.15rem)' }}
+            />
+          </div>
         </div>
 
         <FadeIn delay={0.15} y={20}>
-          <ContactButton />
+          <ContactButton label="Contact Us" href="https://www.imssa.lk/" />
         </FadeIn>
       </div>
     </section>
